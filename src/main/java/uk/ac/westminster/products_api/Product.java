@@ -1,5 +1,18 @@
-
 package uk.ac.westminster.products_api;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+
+//spring boot application
+//telling jackson that digital product and physical product are sub classes of product
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "productType"
+)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = DigitalProduct.class, name = "DIGITAL"),
+        @JsonSubTypes.Type(value = PhysicalProduct.class, name = "PHYSICAL")
+})
 
 public class Product {
 
@@ -40,4 +53,6 @@ public class Product {
     public void setPrice(double price) {
         this.price = price;
     }
+
+
 }

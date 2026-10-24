@@ -30,4 +30,14 @@ public class DigitalProduct extends Product {
     public double getFileSizeMB() {
         return fileSizeMB;
     }
+
+
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
+    }
+
+    public void setFileSizeMB(double fileSizeMB) {
+        this.fileSizeMB = fileSizeMB;
+    }
+
 }
