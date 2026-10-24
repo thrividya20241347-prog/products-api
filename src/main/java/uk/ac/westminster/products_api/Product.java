@@ -3,6 +3,7 @@ package uk.ac.westminster.products_api;
 
 public class Product {
 
+    //instance variable
     private Long id;
     private String name;
     private double price;
