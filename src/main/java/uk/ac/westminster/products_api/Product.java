@@ -30,6 +30,10 @@ public class Product {
         this.price = price;
     }
 
+    public String getSummary() {
+        return getName() + " — £" + getPrice();
+    }
+
     public Long getId() {
         return id;
     }
