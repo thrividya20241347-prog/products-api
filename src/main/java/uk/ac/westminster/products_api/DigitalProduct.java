@@ -1,43 +1,22 @@
 package uk.ac.westminster.products_api;
 
-//inheritance application "extends"
-public class DigitalProduct extends Product {
+public class DigitalProduct extends Product
+        implements Discountable {
 
     private String downloadUrl;
     private double fileSizeMB;
+    private double discountedPrice;
 
-
-    //default constructor- Because sometimes we want to create an object without immediately giving it any information.
-    public DigitalProduct(){
-
+    public DigitalProduct() {
     }
 
-    // parameterized constructor
-    public DigitalProduct(Long id, String name, double price, String downloadUrl, double fileSizeMB){
-        //calling parent class constructors- giving objects its starting values
-        super (id, name, price);
+    public DigitalProduct(Long id, String name, double price,
+                          String downloadUrl, double fileSizeMB) {
 
+        super(id, name, price);
         this.downloadUrl = downloadUrl;
         this.fileSizeMB = fileSizeMB;
-
-    }
-
-    //adding getters to read those values added in constrictor
-    public String getDownloadUrl() {
-        return downloadUrl;
-    }
-
-    public double getFileSizeMB() {
-        return fileSizeMB;
-    }
-
-
-    public void setDownloadUrl(String downloadUrl) {
-        this.downloadUrl = downloadUrl;
-    }
-
-    public void setFileSizeMB(double fileSizeMB) {
-        this.fileSizeMB = fileSizeMB;
+        this.discountedPrice = price;
     }
 
     @Override
@@ -46,4 +25,30 @@ public class DigitalProduct extends Product {
                 + " | Download: " + downloadUrl;
     }
 
+    @Override
+    public void applyDiscount(double rate) {
+        // Digital products receive the full discount
+        this.discountedPrice = getPrice() * (1 - rate);
+    }
+
+    @Override
+    public double getDiscountedPrice() {
+        return discountedPrice;
+    }
+
+    public String getDownloadUrl() {
+        return downloadUrl;
+    }
+
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
+    }
+
+    public double getFileSizeMB() {
+        return fileSizeMB;
+    }
+
+    public void setFileSizeMB(double fileSizeMB) {
+        this.fileSizeMB = fileSizeMB;
+    }
 }

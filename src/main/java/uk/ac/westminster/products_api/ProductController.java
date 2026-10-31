@@ -1,47 +1,36 @@
-
 package uk.ac.westminster.products_api;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
+@RequestMapping("/products")
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
 
-    @GetMapping("/products")
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    // GET /products
+    @GetMapping
     public List<Product> getAllProducts() {
         return productService.getAllProducts();
     }
 
+    // POST /products
+    @PostMapping
+    public Product addProduct(
+            @RequestBody DigitalProduct product) {
 
-    @GetMapping("/products/{id}")
-    public Product getProductById(@PathVariable Long id) {
-        return productService.getProductById(id).orElse(null);
-    }
-
-
-    @PostMapping("/products")
-    public Product addProduct(@RequestBody Product product) {
+        // Lab fix: accept a concrete class because Product is abstract.
         return productService.addProduct(product);
     }
 
-
-    @DeleteMapping("/products/{id}")
-    public void deleteProduct(@PathVariable Long id) {
-        productService.deleteProduct(id);
+    // GET /products/summaries
+    @GetMapping("/summaries")
+    public List<String> getSummaries() {
+        return productService.getAllSummaries();
     }
-
-
-    @GetMapping("/products/search")
-    public List<Product> search(@RequestParam String name) {
-        return productService.findByName(name);
-    }
-
-
-
-
 }
